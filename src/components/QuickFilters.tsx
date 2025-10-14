@@ -1,3 +1,5 @@
+import Chip from './Chip';
+
 interface QuickFiltersProps {
   activeFilters: {
     pickupDay: string;
@@ -29,17 +31,12 @@ export default function QuickFilters({ activeFilters, onFilterChange }: QuickFil
     <div className="max-w-md mx-auto px-4 py-2">
       <div className="flex flex-wrap gap-2">
         {quickFilters.map((filter, index) => (
-          <button
+          <Chip
             key={index}
-            onClick={() => handleFilterClick(filter.key, filter.value)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors min-h-[44px] ${
-              isActive(filter.key, filter.value)
-                ? 'bg-emerald-600 text-white shadow-sm'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {filter.label}
-          </button>
+            label={filter.label}
+            active={isActive(filter.key, filter.value)}
+            onToggle={() => handleFilterClick(filter.key, filter.value)}
+          />
         ))}
       </div>
     </div>

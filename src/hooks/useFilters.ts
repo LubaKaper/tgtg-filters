@@ -68,33 +68,43 @@ export const useFilters = () => {
 
   // Basic typo tolerance: allow one missing/extra character
   const isLooseMatch = (normalizedQuery: string, normalizedText: string): boolean => {
-    if (normalizedText.includes(normalizedQuery)) return true;
+    // Direct substring match (fastest check)
+    if (normalizedText.includes(normalizedQuery) || normalizedQuery.includes(normalizedText)) {
+      return true;
+    }
     
+    // Skip expensive edit distance for very different lengths
     const lengthDiff = Math.abs(normalizedQuery.length - normalizedText.length);
     if (lengthDiff > 1) return false;
     
-    // Check for single character difference
-    const shorter = normalizedQuery.length < normalizedText.length ? normalizedQuery : normalizedText;
-    const longer = normalizedQuery.length >= normalizedText.length ? normalizedQuery : normalizedText;
+    // Single edit distance check (insertion, deletion, or substitution)
+    const [a, b] = normalizedQuery.length <= normalizedText.length 
+      ? [normalizedQuery, normalizedText] 
+      : [normalizedText, normalizedQuery];
     
-    let differences = 0;
-    let i = 0, j = 0;
+    let i = 0, j = 0, edits = 0;
     
-    while (i < shorter.length && j < longer.length) {
-      if (shorter[i] !== longer[j]) {
-        differences++;
-        if (differences > 1) return false;
-        if (shorter.length === longer.length) {
+    while (i < a.length && j < b.length) {
+      if (a[i] === b[j]) {
+        i++; j++;
+      } else {
+        edits++;
+        if (edits > 1) return false;
+        
+        // Try deletion from b (or insertion in a)
+        if (a.length === b.length) {
+          // Substitution
           i++; j++;
         } else {
-          j++; // skip character in longer string
+          // Insertion/deletion - advance longer string
+          j++;
         }
-      } else {
-        i++; j++;
       }
     }
     
-    return differences <= 1;
+    // Account for remaining characters
+    edits += (b.length - j);
+    return edits <= 1;
   };
 
   const isActive = (filterKey: keyof FilterState): boolean => {
@@ -109,14 +119,17 @@ export const useFilters = () => {
 
   const getFilteredResults = (results: StoreResult[]): StoreResult[] => {
     return results.filter(store => {
-      // Query filter with fuzzy search
+      // Query filter with enhanced fuzzy search
       if (filters.query) {
         const normalizedQuery = normalizeText(filters.query);
         const normalizedName = normalizeText(store.name);
         const normalizedCuisine = normalizeText(store.cuisine);
+        const normalizedFoodType = normalizeText(store.foodType);
         
-        if (!normalizedName.includes(normalizedQuery) && 
-            !normalizedCuisine.includes(normalizedQuery)) {
+        // Check for fuzzy matches across name, cuisine, and food type
+        if (!isLooseMatch(normalizedQuery, normalizedName) && 
+            !isLooseMatch(normalizedQuery, normalizedCuisine) &&
+            !isLooseMatch(normalizedQuery, normalizedFoodType)) {
           return false;
         }
       }
@@ -172,6 +185,7 @@ export const useFilters = () => {
     if (filters.pickupWindow) count++;
     if (filters.foodTypes.length > 0) count++;
     if (filters.diet.length > 0) count++;
+    if (filters.cuisines.length > 0) count++;
     if (filters.distance !== null) count++;
     if (filters.price) count++;
     return count;

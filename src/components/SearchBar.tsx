@@ -11,7 +11,7 @@ interface SearchBarProps {
 
 interface SuggestionItem {
   text: string;
-  type: 'name' | 'cuisine';
+  type: 'name' | 'cuisine' | 'food';
 }
 
 export default function SearchBar({ 
@@ -35,21 +35,35 @@ export default function SearchBar({
       mockResults.forEach(store => {
         const normalizedName = normalizeText(store.name);
         const normalizedCuisine = normalizeText(store.cuisine);
+        const normalizedFoodType = normalizeText(store.foodType);
         
-        // Check name matches (exact and fuzzy)
-        if (normalizedName.includes(normalizedQuery) || 
-            isLooseMatch(normalizedQuery, normalizedName)) {
+        // Check name matches with fuzzy matching
+        if (isLooseMatch(normalizedQuery, normalizedName)) {
           suggestionMap.set(store.name, { text: store.name, type: 'name' });
         }
         
-        // Check cuisine matches (exact and fuzzy)
-        if (normalizedCuisine.includes(normalizedQuery) || 
-            isLooseMatch(normalizedQuery, normalizedCuisine)) {
+        // Check cuisine matches with fuzzy matching
+        if (isLooseMatch(normalizedQuery, normalizedCuisine)) {
           suggestionMap.set(store.cuisine, { text: store.cuisine, type: 'cuisine' });
+        }
+        
+        // Check food type matches with fuzzy matching
+        if (isLooseMatch(normalizedQuery, normalizedFoodType)) {
+          suggestionMap.set(store.foodType, { text: store.foodType, type: 'food' });
         }
       });
       
-      const suggestionArray = Array.from(suggestionMap.values()).slice(0, 5);
+      // Sort suggestions by relevance (exact matches first, then fuzzy)
+      const suggestionArray = Array.from(suggestionMap.values())
+        .sort((a, b) => {
+          const aExact = normalizeText(a.text).includes(normalizedQuery);
+          const bExact = normalizeText(b.text).includes(normalizedQuery);
+          if (aExact && !bExact) return -1;
+          if (!aExact && bExact) return 1;
+          return 0;
+        })
+        .slice(0, 5);
+      
       setSuggestions(suggestionArray);
       setShowSuggestions(true);
       setSelectedIndex(-1);
@@ -160,9 +174,11 @@ export default function SearchBar({
                 <div className="text-sm text-gray-900">
                   {highlightMatch(suggestion.text, query)}
                 </div>
-                {suggestion.type === 'cuisine' && (
-                  <div className="text-xs text-gray-500 mt-0.5">Cuisine</div>
-                )}
+                <div className="text-xs text-gray-500 mt-0.5">
+                  {suggestion.type === 'cuisine' && 'Cuisine'}
+                  {suggestion.type === 'food' && 'Food Type'}
+                  {suggestion.type === 'name' && 'Restaurant'}
+                </div>
               </button>
             ))
           ) : (

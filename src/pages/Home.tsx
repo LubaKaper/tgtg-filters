@@ -8,11 +8,12 @@ import ResultCard from '../components/ResultCard';
 import FilterDrawer from '../components/FilterDrawer';
 import BottomNav from '../components/BottomNav';
 import { useFilters } from '../hooks/useFilters';
-import { mockResults } from '../data/mockResults';
+import { mockResults, type StoreResult } from '../data/mockResults';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'list' | 'map'>('list');
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
+  const [storeData, setStoreData] = useState<StoreResult[]>(mockResults);
   
   const {
     filters,
@@ -26,7 +27,7 @@ export default function Home() {
     isLooseMatch
   } = useFilters();
 
-  const filteredResults = getFilteredResults(mockResults);
+  const filteredResults = getFilteredResults(storeData);
 
   const handleQuickFilterChange = (key: string, value: string) => {
     applyFilter(key as any, value);
@@ -35,6 +36,16 @@ export default function Home() {
   const handleFilterDrawerApply = () => {
     // Filter state is already managed by useFilters hook
     setIsFilterDrawerOpen(false);
+  };
+
+  const handleToggleFavorite = (storeId: string) => {
+    setStoreData(prevData => 
+      prevData.map(store => 
+        store.id === storeId 
+          ? { ...store, isFavorite: !store.isFavorite }
+          : store
+      )
+    );
   };
 
   return (
@@ -98,7 +109,7 @@ export default function Home() {
                     key={store.id}
                     store={store}
                     onPress={() => console.log('Store clicked:', store.name)}
-                    onToggleFavorite={(storeId) => console.log('Toggle favorite:', storeId)}
+                    onToggleFavorite={handleToggleFavorite}
                   />
                 ))}
               </>
@@ -123,6 +134,7 @@ export default function Home() {
         isOpen={isFilterDrawerOpen}
         onClose={() => setIsFilterDrawerOpen(false)}
         filters={filters}
+        activeFiltersCount={getActiveFiltersCount}
         onFilterChange={(key, value) => applyFilter(key as any, value)}
         onToggleArrayFilter={toggleArrayFilter}
         onClearAll={clearAll}

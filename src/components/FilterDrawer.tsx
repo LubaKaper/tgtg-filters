@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { foodTypes, pickupDays, pickupWindows, dietaryOptions, priceBuckets, cuisines } from '../data/taxonomies';
+import Chip from './Chip';
 
 interface FilterDrawerProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface FilterDrawerProps {
     distance: number | null;
     price: string | null;
   };
+  activeFiltersCount: number;
   onFilterChange: (key: string, value: any) => void;
   onToggleArrayFilter: (key: 'foodTypes' | 'diet' | 'cuisines', value: string) => void;
   onClearAll: () => void;
@@ -24,6 +26,7 @@ export default function FilterDrawer({
   isOpen,
   onClose,
   filters,
+  activeFiltersCount,
   onFilterChange,
   onToggleArrayFilter,
   onClearAll,
@@ -70,21 +73,11 @@ export default function FilterDrawer({
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-200">
                   <Dialog.Title as="h3" className="text-lg font-semibold text-gray-900">
-                    Filters {(() => {
-                      let count = 0;
-                      if (filters.pickupDay) count++;
-                      if (filters.pickupWindow) count++;
-                      if (filters.foodTypes.length > 0) count++;
-                      if (filters.diet.length > 0) count++;
-                      if (filters.cuisines.length > 0) count++;
-                      if (filters.distance !== null) count++;
-                      if (filters.price !== null) count++;
-                      return count > 0 ? (
-                        <span className="text-sm font-normal text-emerald-600">
-                          ({count})
-                        </span>
-                      ) : null;
-                    })()}
+                    Filters {activeFiltersCount > 0 && (
+                      <span className="text-sm font-normal text-emerald-600">
+                        ({activeFiltersCount})
+                      </span>
+                    )}
                   </Dialog.Title>
                   <button
                     onClick={onClose}
@@ -104,17 +97,12 @@ export default function FilterDrawer({
                     <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Pickup Day</h4>
                     <div className="flex gap-3">
                       {pickupDays.map((day) => (
-                        <button
+                        <Chip
                           key={day}
-                          onClick={() => onFilterChange('pickupDay', filters.pickupDay === day ? '' : day)}
-                          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors min-h-[44px] ${
-                            filters.pickupDay === day
-                              ? 'bg-emerald-600 text-white shadow-md'
-                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'
-                          }`}
-                        >
-                          {day}
-                        </button>
+                          label={day}
+                          active={filters.pickupDay === day}
+                          onToggle={() => onFilterChange('pickupDay', filters.pickupDay === day ? '' : day)}
+                        />
                       ))}
                     </div>
                   </div>
@@ -124,17 +112,12 @@ export default function FilterDrawer({
                     <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Pickup Window</h4>
                     <div className="grid grid-cols-2 gap-3">
                       {pickupWindows.map((window) => (
-                        <button
+                        <Chip
                           key={window}
-                          onClick={() => onFilterChange('pickupWindow', filters.pickupWindow === window ? '' : window)}
-                          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors min-h-[44px] ${
-                            filters.pickupWindow === window
-                              ? 'bg-emerald-600 text-white shadow-md'
-                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'
-                          }`}
-                        >
-                          {window}
-                        </button>
+                          label={window}
+                          active={filters.pickupWindow === window}
+                          onToggle={() => onFilterChange('pickupWindow', filters.pickupWindow === window ? '' : window)}
+                        />
                       ))}
                     </div>
                   </div>
@@ -144,17 +127,13 @@ export default function FilterDrawer({
                     <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Food Types</h4>
                     <div className="flex flex-wrap gap-2">
                       {foodTypes.map((type) => (
-                        <button
+                        <Chip
                           key={type}
-                          onClick={() => onToggleArrayFilter('foodTypes', type)}
-                          className={`px-3 py-2 rounded-full text-sm font-medium transition-colors min-h-[44px] ${
-                            filters.foodTypes.includes(type)
-                              ? 'bg-emerald-600 text-white shadow-md'
-                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'
-                          }`}
-                        >
-                          {type}
-                        </button>
+                          label={type}
+                          active={filters.foodTypes.includes(type)}
+                          onToggle={() => onToggleArrayFilter('foodTypes', type)}
+                          variant="compact"
+                        />
                       ))}
                     </div>
                   </div>
@@ -164,17 +143,13 @@ export default function FilterDrawer({
                     <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Diet Preferences</h4>
                     <div className="flex flex-wrap gap-2">
                       {dietaryOptions.slice(0, 3).map((diet) => (
-                        <button
+                        <Chip
                           key={diet}
-                          onClick={() => onToggleArrayFilter('diet', diet)}
-                          className={`px-3 py-2 rounded-full text-sm font-medium transition-colors min-h-[44px] ${
-                            filters.diet.includes(diet)
-                              ? 'bg-emerald-600 text-white shadow-md'
-                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'
-                          }`}
-                        >
-                          {diet}
-                        </button>
+                          label={diet}
+                          active={filters.diet.includes(diet)}
+                          onToggle={() => onToggleArrayFilter('diet', diet)}
+                          variant="compact"
+                        />
                       ))}
                     </div>
                   </div>
@@ -184,44 +159,83 @@ export default function FilterDrawer({
                     <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Cuisines</h4>
                     <div className="flex flex-wrap gap-2">
                       {cuisines.slice(0, 8).map((cuisine) => (
-                        <button
+                        <Chip
                           key={cuisine}
-                          onClick={() => onToggleArrayFilter('cuisines', cuisine)}
-                          className={`px-3 py-2 rounded-full text-sm font-medium transition-colors min-h-[44px] ${
-                            filters.cuisines.includes(cuisine)
-                              ? 'bg-emerald-600 text-white shadow-md'
-                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'
-                          }`}
-                        >
-                          {cuisine}
-                        </button>
+                          label={cuisine}
+                          active={filters.cuisines.includes(cuisine)}
+                          onToggle={() => onToggleArrayFilter('cuisines', cuisine)}
+                          variant="compact"
+                        />
                       ))}
                     </div>
                   </div>
 
                   {/* Distance */}
                   <div className="filter-section">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">
-                      Distance {filters.distance ? `(${filters.distance} mi)` : '(2.5 mi)'}
-                    </h4>
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Distance</h4>
+                      <span className="text-sm text-gray-600 font-medium">
+                        ≤ {filters.distance || 2.5} mi
+                      </span>
+                    </div>
                     <div className="px-2">
-                      <input
-                        type="range"
-                        min="0.5"
-                        max="5"
-                        step="0.5"
-                        value={filters.distance || 2.5}
-                        onChange={(e) => onFilterChange('distance', parseFloat(e.target.value))}
-                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider accent-emerald-600"
-                        style={{
-                          background: `linear-gradient(to right, #10b981 0%, #10b981 ${((filters.distance || 2.5) - 0.5) / 4.5 * 100}%, #e5e7eb ${((filters.distance || 2.5) - 0.5) / 4.5 * 100}%, #e5e7eb 100%)`
-                        }}
-                      />
-                      <div className="flex justify-between text-xs text-gray-500 mt-2">
-                        <span>0.5</span>
-                        <span>1</span>
-                        <span>3</span>
-                        <span>5 mi</span>
+                      <div className="relative">
+                        <input
+                          type="range"
+                          min="0.5"
+                          max="5"
+                          step="0.5"
+                          value={filters.distance || 2.5}
+                          onChange={(e) => onFilterChange('distance', parseFloat(e.target.value))}
+                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50"
+                          style={{
+                            background: `linear-gradient(to right, #10b981 0%, #10b981 ${((filters.distance || 2.5) - 0.5) / 4.5 * 100}%, #e5e7eb ${((filters.distance || 2.5) - 0.5) / 4.5 * 100}%, #e5e7eb 100%)`
+                          }}
+                          aria-label="Distance filter"
+                          aria-valuemin={0.5}
+                          aria-valuemax={5}
+                          aria-valuenow={filters.distance || 2.5}
+                          aria-valuetext={`${filters.distance || 2.5} miles`}
+                        />
+                        <style dangerouslySetInnerHTML={{
+                          __html: `
+                            input[type="range"]::-webkit-slider-thumb {
+                              appearance: none;
+                              height: 20px;
+                              width: 20px;
+                              border-radius: 50%;
+                              background: #10b981;
+                              border: 2px solid #ffffff;
+                              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                              cursor: pointer;
+                              transition: all 0.2s ease;
+                            }
+                            input[type="range"]::-webkit-slider-thumb:hover {
+                              background: #059669;
+                              transform: scale(1.1);
+                            }
+                            input[type="range"]::-moz-range-thumb {
+                              height: 20px;
+                              width: 20px;
+                              border-radius: 50%;
+                              background: #10b981;
+                              border: 2px solid #ffffff;
+                              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                              cursor: pointer;
+                              transition: all 0.2s ease;
+                            }
+                            input[type="range"]::-moz-range-thumb:hover {
+                              background: #059669;
+                              transform: scale(1.1);
+                            }
+                          `
+                        }} />
+                      </div>
+                      <div className="flex justify-between text-xs text-gray-500 mt-3 px-1">
+                        <span className="text-center">0.5</span>
+                        <span className="text-center">1</span>
+                        <span className="text-center">3</span>
+                        <span className="text-center">5 mi</span>
                       </div>
                     </div>
                   </div>
@@ -231,17 +245,12 @@ export default function FilterDrawer({
                     <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Price Range</h4>
                     <div className="flex gap-3">
                       {priceBuckets.map((price) => (
-                        <button
+                        <Chip
                           key={price}
-                          onClick={() => onFilterChange('price', filters.price === price ? null : price)}
-                          className={`px-6 py-2 rounded-full text-sm font-medium transition-colors min-h-[44px] ${
-                            filters.price === price
-                              ? 'bg-emerald-600 text-white shadow-md'
-                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'
-                          }`}
-                        >
-                          {price}
-                        </button>
+                          label={price}
+                          active={filters.price === price}
+                          onToggle={() => onFilterChange('price', filters.price === price ? null : price)}
+                        />
                       ))}
                     </div>
                   </div>

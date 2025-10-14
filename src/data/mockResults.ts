@@ -15,6 +15,7 @@ export interface StoreResult {
   image: string;
   img?: string; // Optional thumbnail URL
   tag?: "New" | "1 left" | "Popular" | null;
+  isFavorite?: boolean;
 }
 
 export const mockResults: StoreResult[] = [
@@ -33,7 +34,8 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 5.99,
     itemsLeft: 3,
     image: '🍝',
-    tag: null
+    tag: null,
+    isFavorite: true
   },
   {
     id: '2',
@@ -50,7 +52,8 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 4.50,
     itemsLeft: 7,
     image: '🥡',
-    tag: 'Popular'
+    tag: 'Popular',
+    isFavorite: false
   },
   {
     id: '3',
@@ -67,7 +70,8 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 3.99,
     itemsLeft: 12,
     image: '🥐',
-    tag: 'New'
+    tag: 'New',
+    isFavorite: false
   },
   {
     id: '4',
@@ -84,7 +88,8 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 6.75,
     itemsLeft: 5,
     image: '🍛',
-    tag: null
+    tag: null,
+    isFavorite: false
   },
   {
     id: '5',
@@ -101,7 +106,8 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 8.99,
     itemsLeft: 2,
     image: '🍣',
-    tag: null
+    tag: null,
+    isFavorite: true
   },
   {
     id: '6',
@@ -118,7 +124,8 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 7.00,
     itemsLeft: 15,
     image: '🛒',
-    tag: null
+    tag: null,
+    isFavorite: false
   },
   {
     id: '7',
@@ -135,7 +142,8 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 5.50,
     itemsLeft: 8,
     image: '🥙',
-    tag: null
+    tag: null,
+    isFavorite: false
   },
   {
     id: '8',
@@ -152,7 +160,8 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 4.99,
     itemsLeft: 6,
     image: '🌹',
-    tag: null
+    tag: null,
+    isFavorite: false
   },
   {
     id: '9',
@@ -169,7 +178,8 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 3.75,
     itemsLeft: 9,
     image: '🌮',
-    tag: null
+    tag: null,
+    isFavorite: false
   },
   {
     id: '10',
@@ -186,7 +196,8 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 8.50,
     itemsLeft: 4,
     image: '🐕',
-    tag: null
+    tag: null,
+    isFavorite: false
   },
   // Additional diverse stores
   {

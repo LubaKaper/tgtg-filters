@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { StoreResult } from '../data/mockResults';
 
 interface ResultCardProps {
@@ -8,7 +7,6 @@ interface ResultCardProps {
 }
 
 export default function ResultCard({ store, onPress, onToggleFavorite }: ResultCardProps) {
-  const [isFavorited, setIsFavorited] = useState(false);
   
   const discountPercent = Math.round(
     ((store.originalPrice - store.discountedPrice) / store.originalPrice) * 100
@@ -16,7 +14,6 @@ export default function ResultCard({ store, onPress, onToggleFavorite }: ResultC
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card click
-    setIsFavorited(!isFavorited);
     onToggleFavorite?.(store.id);
   };
 
@@ -35,9 +32,9 @@ export default function ResultCard({ store, onPress, onToggleFavorite }: ResultC
               store.image
             )}
           </div>
-          {/* Tag badge */}
+          {/* Tag badge overlay */}
           {store.tag && (
-            <div className="absolute -top-1 -left-1 px-1.5 py-0.5 bg-emerald-600 text-white text-xs font-medium rounded-sm">
+            <div className="absolute top-1 right-1 px-2 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full shadow-sm">
               {store.tag}
             </div>
           )}
@@ -80,12 +77,12 @@ export default function ResultCard({ store, onPress, onToggleFavorite }: ResultC
             {/* Favorite heart icon */}
             <button
               onClick={handleFavoriteClick}
-              aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
+              aria-label={store.isFavorite ? "Remove from favorites" : "Add to favorites"}
               className="p-2 rounded-full hover:bg-gray-100 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center ml-2"
             >
               <svg 
-                className={`w-5 h-5 ${isFavorited ? 'text-red-500 fill-current' : 'text-gray-400'}`} 
-                fill={isFavorited ? 'currentColor' : 'none'} 
+                className={`w-5 h-5 ${store.isFavorite ? 'text-red-500 fill-current' : 'text-gray-400'}`} 
+                fill={store.isFavorite ? 'currentColor' : 'none'} 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
               >
