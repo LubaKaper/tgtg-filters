@@ -48,28 +48,28 @@ export default function FilterDrawer({
       <Dialog as="div" className="relative z-50" onClose={onClose}>
         <Transition.Child
           as={Fragment}
-          enter="ease-out duration-300"
+          enter="ease-out duration-300 transition-opacity"
           enterFrom="opacity-0"
           enterTo="opacity-100"
-          leave="ease-in duration-200"
+          leave="ease-in duration-200 transition-opacity"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-25" />
+          <div className="fixed inset-0 bg-black/25 backdrop-blur-sm" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-end justify-center text-center">
             <Transition.Child
               as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-full"
-              enterTo="opacity-100 translate-y-0"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-full"
+              enter="ease-out duration-500 transition-all"
+              enterFrom="opacity-0 translate-y-full scale-95"
+              enterTo="opacity-100 translate-y-0 scale-100"
+              leave="ease-in duration-300 transition-all"
+              leaveFrom="opacity-100 translate-y-0 scale-100"
+              leaveTo="opacity-0 translate-y-full scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-t-2xl bg-white text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-t-2xl bg-white text-left align-middle shadow-xl transition-all pb-[env(safe-area-inset-bottom)]">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-200">
                   <Dialog.Title as="h3" className="text-lg font-semibold text-gray-900">

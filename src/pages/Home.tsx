@@ -49,7 +49,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-[calc(5rem+env(safe-area-inset-bottom))]"> {/* pb-20 + safe area for bottom nav */}
+    <div className="min-h-screen bg-gray-50 pt-[env(safe-area-inset-top)] pb-[calc(5rem+env(safe-area-inset-bottom))]"> {/* Safe area padding for header and bottom nav */}
       {/* Header */}
       <Header />
       

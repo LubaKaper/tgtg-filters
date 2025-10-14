@@ -13,7 +13,7 @@ export default function Chip({
   variant = 'default',
   disabled = false 
 }: ChipProps) {
-  const baseClasses = "rounded-full text-sm font-medium transition-colors min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2";
+  const baseClasses = "rounded-full text-sm font-medium transition-all duration-200 ease-out min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2";
   
   const variantClasses = {
     default: "px-4 py-2",

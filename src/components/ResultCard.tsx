@@ -78,10 +78,10 @@ export default function ResultCard({ store, onPress, onToggleFavorite }: ResultC
             <button
               onClick={handleFavoriteClick}
               aria-label={store.isFavorite ? "Remove from favorites" : "Add to favorites"}
-              className="p-2 rounded-full hover:bg-gray-100 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center ml-2"
+              className="p-2 rounded-full hover:bg-gray-100 transition-all duration-200 ease-out hover:scale-110 min-h-[44px] min-w-[44px] flex items-center justify-center ml-2"
             >
               <svg 
-                className={`w-5 h-5 ${store.isFavorite ? 'text-red-500 fill-current' : 'text-gray-400'}`} 
+                className={`w-5 h-5 transition-all duration-200 ${store.isFavorite ? 'text-red-500 fill-current scale-110' : 'text-gray-400'}`} 
                 fill={store.isFavorite ? 'currentColor' : 'none'} 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"

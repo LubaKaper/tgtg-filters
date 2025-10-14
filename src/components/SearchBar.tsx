@@ -144,7 +144,7 @@ export default function SearchBar({
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-brand focus:border-brand min-h-[44px]"
+          className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-brand focus:border-brand min-h-[44px] transition-all duration-200"
         />
         <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
           <button
@@ -161,7 +161,7 @@ export default function SearchBar({
       
       {/* Suggestions dropdown */}
       {showSuggestions && (
-        <div className="absolute top-full left-4 right-4 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-60 overflow-y-auto">
+        <div className="absolute top-full left-4 right-4 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-60 overflow-y-auto opacity-100 scale-100 transition-all duration-200 ease-out transform origin-top">
           {suggestions.length > 0 ? (
             suggestions.map((suggestion, index) => (
               <button

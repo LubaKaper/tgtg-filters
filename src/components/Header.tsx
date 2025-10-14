@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <header className="pt-[env(safe-area-inset-top)] bg-white border-b border-gray-200">
+    <header className="bg-white border-b border-gray-200">
       <div className="max-w-md mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div>

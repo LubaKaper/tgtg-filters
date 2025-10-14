@@ -1,0 +1,8 @@
+<!-- 512x512 App Icon -->
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="85" fill="#10b981"/>
+  <circle cx="256" cy="180" r="80" fill="white"/>
+  <rect x="176" y="290" width="160" height="32" rx="16" fill="white"/>
+  <rect x="196" y="340" width="120" height="20" rx="10" fill="white"/>
+  <text x="256" y="410" text-anchor="middle" fill="white" font-size="36" font-family="Arial, sans-serif">TGTG</text>
+</svg>
