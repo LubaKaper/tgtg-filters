@@ -34,6 +34,7 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 5.99,
     itemsLeft: 3,
     image: '🍝',
+    img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&crop=center',
     tag: null,
     isFavorite: true
   },
@@ -52,6 +53,7 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 4.50,
     itemsLeft: 7,
     image: '🥡',
+    img: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&h=300&fit=crop&crop=center',
     tag: 'Popular',
     isFavorite: false
   },
@@ -70,6 +72,7 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 3.99,
     itemsLeft: 12,
     image: '🥐',
+    img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop&crop=center',
     tag: 'New',
     isFavorite: false
   },
@@ -88,6 +91,7 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 6.75,
     itemsLeft: 5,
     image: '🍛',
+    img: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop&crop=center',
     tag: null,
     isFavorite: false
   },
@@ -106,7 +110,8 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 8.99,
     itemsLeft: 2,
     image: '🍣',
-    tag: null,
+    img: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400&h=300&fit=crop&crop=center',
+    tag: '1 left',
     isFavorite: true
   },
   {
@@ -124,6 +129,7 @@ export const mockResults: StoreResult[] = [
     discountedPrice: 7.00,
     itemsLeft: 15,
     image: '🛒',
+    img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=300&fit=crop&crop=center',
     tag: null,
     isFavorite: false
   },

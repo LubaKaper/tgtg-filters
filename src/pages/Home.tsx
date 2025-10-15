@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import QuickFilters from '../components/QuickFilters';
 import TabsBar from '../components/TabsBar';
+import SortBar from '../components/SortBar';
 import ActiveFiltersBar from '../components/ActiveFiltersBar';
 import ResultCard from '../components/ResultCard';
 import FilterDrawer from '../components/FilterDrawer';
@@ -54,13 +55,16 @@ export default function Home() {
       <Header />
       
       {/* Search Bar */}
-      <SearchBar
-        query={filters.query}
-        onQueryChange={(query) => applyFilter('query', query)}
-        onFilterClick={() => setIsFilterDrawerOpen(true)}
-        normalizeText={normalizeText}
-        isLooseMatch={isLooseMatch}
-      />
+      <div className="max-w-md mx-auto px-4 py-3">
+        <SearchBar
+          query={filters.query}
+          onQueryChange={(query) => applyFilter('query', query)}
+          onOpenFilters={() => setIsFilterDrawerOpen(true)}
+          onOpenLocation={() => {/* TODO: Location picker */}}
+          normalizeText={normalizeText}
+          isLooseMatch={isLooseMatch}
+        />
+      </div>
       
       {/* Quick Filters */}
       <QuickFilters
@@ -75,6 +79,12 @@ export default function Home() {
       <TabsBar
         activeTab={activeTab}
         onTabChange={setActiveTab}
+      />
+      
+      {/* Sort Bar */}
+      <SortBar 
+        sortBy="Relevance"
+        onSortChange={(_sort: string) => {/* TODO: Implement sorting */}}
       />
       
       {/* Active Filters Bar */}
