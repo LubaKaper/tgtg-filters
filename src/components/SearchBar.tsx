@@ -136,7 +136,7 @@ export default function SearchBar({
       return (
         <>
           {beforeMatch}
-          <span className="font-semibold text-emerald-600">{match}</span>
+          <span className="font-semibold text-[#00715E]">{match}</span>
           {afterMatch}
         </>
       );
@@ -146,10 +146,10 @@ export default function SearchBar({
     return text;
   };
   return (
-    <div className="relative pl-2">
-      <div className="flex items-center w-full space-x-2">
+    <div className="relative">
+      <div className="flex items-center w-full space-x-1.5">
         {/* Search input */}
-        <div className="flex items-center flex-1 bg-white border border-gray-200 rounded-[10px] h-11 shadow-sm px-3">
+        <div className="flex items-center flex-1 h-11 rounded-[10px] border border-gray-300 bg-white shadow-sm px-3">
           <MagnifyingGlassIcon className="h-5 w-5 text-gray-500" />
           <input
             ref={inputRef}
@@ -158,39 +158,39 @@ export default function SearchBar({
             value={query}
             onChange={(e) => onQueryChange?.(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 bg-transparent outline-none text-[15px] text-gray-800 placeholder-gray-500 pl-2 transition-all duration-200"
+            className="flex-1 bg-transparent outline-none text-[15px] text-gray-900 placeholder-gray-500 pl-2"
           />
         </div>
 
-        {/* Filter button (wider) */}
+        {/* Filter button */}
         <button
           onClick={onOpenFilters || onFilterClick}
           aria-label="Open filters"
-          className="h-11 w-14 flex items-center justify-center bg-white border border-gray-200 rounded-[10px] shadow-sm active:scale-[0.97] transition"
+          className="h-11 w-11 inline-flex items-center justify-center rounded-[10px] border border-gray-300 bg-white shadow-sm active:scale-[0.97] transition"
         >
-          <FilterSliderIcon className="h-5 w-5 text-gray-600" />
+          <FilterSliderIcon className="h-[18px] w-[18px] text-gray-600 stroke-[1.3]" />
         </button>
 
         {/* Location button */}
         <button
           onClick={onOpenLocation}
           aria-label="Choose location"
-          className="h-11 w-11 flex items-center justify-center bg-white border border-gray-200 rounded-[10px] shadow-sm active:scale-[0.97] transition"
+          className="h-11 w-11 inline-flex items-center justify-center rounded-[10px] border border-gray-300 bg-white shadow-sm active:scale-[0.97] transition"
         >
-          <MapPinIcon className="h-5 w-5 text-gray-600 stroke-[1.5]" />
+          <MapPinIcon className="h-[18px] w-[18px] text-gray-600 stroke-[1.3]" />
         </button>
       </div>
       
       {/* Suggestions dropdown */}
       {showSuggestions && (
-        <div className="absolute top-full left-2 right-2 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-60 overflow-y-auto opacity-100 scale-100 transition-all duration-200 ease-out transform origin-top">
+        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-sm border border-gray-200 z-50 max-h-60 overflow-y-auto opacity-100 scale-100 transition-all duration-200 ease-out transform origin-top">
           {suggestions.length > 0 ? (
             suggestions.map((suggestion, index) => (
               <button
                 key={index}
                 onClick={() => handleSuggestionClick(suggestion)}
                 className={`w-full px-4 py-3 text-left border-b border-gray-100 last:border-b-0 transition-colors min-h-[44px] ${
-                  selectedIndex === index ? 'bg-emerald-50' : 'hover:bg-gray-50'
+                  selectedIndex === index ? 'bg-teal-50' : 'hover:bg-gray-50'
                 }`}
               >
                 <div className="text-sm text-gray-900">

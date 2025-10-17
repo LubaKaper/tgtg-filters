@@ -7,14 +7,14 @@ interface SortBarProps {
 
 export default function SortBar({ sortBy = "Relevance", onSortChange }: SortBarProps) {
   return (
-    <div className="max-w-md mx-auto px-4 py-2">
+    <div className="flex items-center justify-between text-[13px] text-gray-600">
       <button
         onClick={() => onSortChange?.(sortBy)}
-        className="flex items-center space-x-1 text-sm text-gray-700"
+        className="flex items-center"
       >
         <span className="font-medium">Sort by:</span>
-        <span className="text-teal-600 font-medium">{sortBy}</span>
-        <ChevronDownIcon className="h-4 w-4 text-gray-500" />
+        <span className="text-[#00715E] font-medium ml-1">{sortBy}</span>
+        <ChevronDownIcon className="h-4 w-4 text-gray-500 ml-1" />
       </button>
     </div>
   );

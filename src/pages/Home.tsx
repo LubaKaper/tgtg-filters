@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import QuickFilters from '../components/QuickFilters';
 import TabsBar from '../components/TabsBar';
@@ -50,13 +49,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-[env(safe-area-inset-top)] pb-[calc(5rem+env(safe-area-inset-bottom))]"> {/* Safe area padding for header and bottom nav */}
-      {/* Header */}
-      <Header />
-      
+    <div className="max-w-md mx-auto bg-gray-50 min-h-screen px-4 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] space-y-3">
       {/* Search Bar */}
-      <div className="max-w-md mx-auto px-4 py-3">
-        <SearchBar
+      <SearchBar
           query={filters.query}
           onQueryChange={(query) => applyFilter('query', query)}
           onOpenFilters={() => setIsFilterDrawerOpen(true)}
@@ -64,7 +59,6 @@ export default function Home() {
           normalizeText={normalizeText}
           isLooseMatch={isLooseMatch}
         />
-      </div>
       
       {/* Quick Filters */}
       <QuickFilters
@@ -96,9 +90,8 @@ export default function Home() {
       />
       
       {/* Results */}
-      <div className="max-w-md mx-auto px-4 py-4">
-        {activeTab === 'list' ? (
-          <div className="space-y-3">
+      {activeTab === 'list' ? (
+        <div className="space-y-3 py-2">
             {filteredResults.length === 0 ? (
               <div className="text-center py-8">
                 <div className="text-gray-400 mb-2">
@@ -137,7 +130,6 @@ export default function Home() {
             <p className="text-gray-500">Map integration coming soon</p>
           </div>
         )}
-      </div>
       
       {/* Filter Drawer */}
       <FilterDrawer

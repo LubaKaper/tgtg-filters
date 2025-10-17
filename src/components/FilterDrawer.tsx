@@ -69,12 +69,12 @@ export default function FilterDrawer({
               leaveFrom="opacity-100 translate-y-0 scale-100"
               leaveTo="opacity-0 translate-y-full scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-t-2xl bg-white text-left align-middle shadow-xl transition-all pb-[env(safe-area-inset-bottom)]">
+              <Dialog.Panel className="rounded-t-2xl bg-white shadow-sm p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200">
-                  <Dialog.Title as="h3" className="text-lg font-semibold text-gray-900">
+                <div className="flex items-center justify-between mb-4">
+                  <Dialog.Title as="h3" className="text-sm font-semibold text-gray-900">
                     Filters {activeFiltersCount > 0 && (
-                      <span className="text-sm font-normal text-emerald-600">
+                      <span className="text-sm font-normal text-[#00715E]">
                         ({activeFiltersCount})
                       </span>
                     )}
@@ -84,18 +84,18 @@ export default function FilterDrawer({
                     aria-label="Close filters"
                     className="p-2 rounded-full hover:bg-gray-100 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                   >
-                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
 
                 {/* Filter Content */}
-                <div className="max-h-96 overflow-y-auto px-6 py-4 space-y-8">
+                <div className="max-h-96 overflow-y-auto space-y-6">
                   {/* Pickup Day */}
-                  <div className="filter-section">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Pickup Day</h4>
-                    <div className="flex gap-3">
+                  <div className="py-3">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Pickup Day</h4>
+                    <div className="flex flex-wrap gap-2">
                       {pickupDays.map((day) => (
                         <Chip
                           key={day}
@@ -108,9 +108,9 @@ export default function FilterDrawer({
                   </div>
 
                   {/* Pickup Window */}
-                  <div className="filter-section">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Pickup Window</h4>
-                    <div className="grid grid-cols-2 gap-3">
+                  <div className="py-3">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Pickup Window</h4>
+                    <div className="flex flex-wrap gap-2">
                       {pickupWindows.map((window) => (
                         <Chip
                           key={window}
@@ -123,8 +123,8 @@ export default function FilterDrawer({
                   </div>
 
                   {/* Food Types */}
-                  <div className="filter-section">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Food Types</h4>
+                  <div className="py-3">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Food Types</h4>
                     <div className="flex flex-wrap gap-2">
                       {foodTypes.map((type) => (
                         <Chip
@@ -139,8 +139,8 @@ export default function FilterDrawer({
                   </div>
 
                   {/* Diet Preferences */}
-                  <div className="filter-section">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Diet Preferences</h4>
+                  <div className="py-3">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Diet Preferences</h4>
                     <div className="flex flex-wrap gap-2">
                       {dietaryOptions.slice(0, 3).map((diet) => (
                         <Chip
@@ -155,8 +155,8 @@ export default function FilterDrawer({
                   </div>
 
                   {/* Cuisines */}
-                  <div className="filter-section">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Cuisines</h4>
+                  <div className="py-3">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Cuisines</h4>
                     <div className="flex flex-wrap gap-2">
                       {cuisines.slice(0, 8).map((cuisine) => (
                         <Chip
@@ -171,9 +171,9 @@ export default function FilterDrawer({
                   </div>
 
                   {/* Distance */}
-                  <div className="filter-section">
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Distance</h4>
+                  <div className="py-3">
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="text-sm font-semibold text-gray-900">Distance</h4>
                       <span className="text-sm text-gray-600 font-medium">
                         ≤ {filters.distance || 2.5} mi
                       </span>
@@ -187,9 +187,9 @@ export default function FilterDrawer({
                           step="0.5"
                           value={filters.distance || 2.5}
                           onChange={(e) => onFilterChange('distance', parseFloat(e.target.value))}
-                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50"
+                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#00715E] focus:ring-opacity-50"
                           style={{
-                            background: `linear-gradient(to right, #10b981 0%, #10b981 ${((filters.distance || 2.5) - 0.5) / 4.5 * 100}%, #e5e7eb ${((filters.distance || 2.5) - 0.5) / 4.5 * 100}%, #e5e7eb 100%)`
+                            background: `linear-gradient(to right, #00715E 0%, #00715E ${((filters.distance || 2.5) - 0.5) / 4.5 * 100}%, #e5e7eb ${((filters.distance || 2.5) - 0.5) / 4.5 * 100}%, #e5e7eb 100%)`
                           }}
                           aria-label="Distance filter"
                           aria-valuemin={0.5}
@@ -204,28 +204,28 @@ export default function FilterDrawer({
                               height: 20px;
                               width: 20px;
                               border-radius: 50%;
-                              background: #10b981;
+                              background: #00715E;
                               border: 2px solid #ffffff;
                               box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                               cursor: pointer;
                               transition: all 0.2s ease;
                             }
                             input[type="range"]::-webkit-slider-thumb:hover {
-                              background: #059669;
+                              background: #005a4a;
                               transform: scale(1.1);
                             }
                             input[type="range"]::-moz-range-thumb {
                               height: 20px;
                               width: 20px;
                               border-radius: 50%;
-                              background: #10b981;
+                              background: #00715E;
                               border: 2px solid #ffffff;
                               box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                               cursor: pointer;
                               transition: all 0.2s ease;
                             }
                             input[type="range"]::-moz-range-thumb:hover {
-                              background: #059669;
+                              background: #005a4a;
                               transform: scale(1.1);
                             }
                           `
@@ -241,9 +241,9 @@ export default function FilterDrawer({
                   </div>
 
                   {/* Price Range */}
-                  <div className="filter-section">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Price Range</h4>
-                    <div className="flex gap-3">
+                  <div className="py-3">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Price Range</h4>
+                    <div className="flex flex-wrap gap-2">
                       {priceBuckets.map((price) => (
                         <Chip
                           key={price}
@@ -257,19 +257,21 @@ export default function FilterDrawer({
                 </div>
 
                 {/* Footer - Sticky */}
-                <div className="sticky bottom-0 flex items-center justify-between p-6 border-t border-gray-200 bg-white">
-                  <button
-                    onClick={handleClearAll}
-                    className="text-sm text-gray-600 hover:text-gray-800 font-medium transition-colors underline min-h-[44px] px-2"
-                  >
-                    Clear All
-                  </button>
-                  <button
-                    onClick={handleApply}
-                    className="px-8 py-3 bg-emerald-600 text-white text-sm font-semibold rounded-full hover:bg-emerald-700 transition-colors shadow-lg min-h-[44px]"
-                  >
-                    Apply Filters
-                  </button>
+                <div className="sticky bottom-0 bg-white border-t border-gray-100 px-4 py-3">
+                  <div className="flex items-center justify-between">
+                    <button
+                      onClick={handleClearAll}
+                      className="text-[14px] text-gray-500 hover:text-gray-700 font-medium"
+                    >
+                      Clear all
+                    </button>
+                    <button
+                      onClick={handleApply}
+                      className="px-6 py-2.5 bg-[#00715E] text-white text-[14px] font-semibold rounded-lg hover:bg-[#005a4a] transition-colors"
+                    >
+                      Apply Filters
+                    </button>
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

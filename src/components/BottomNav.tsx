@@ -52,18 +52,18 @@ export default function BottomNav() {
               onClick={() => setActiveTab(item.id)}
               className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors ${
                 activeTab === item.id
-                  ? 'text-emerald-600'
+                  ? 'text-[#00715E]'
                   : 'text-gray-400 hover:text-gray-600'
               }`}
             >
-              <div className={`${activeTab === item.id ? 'text-emerald-600' : 'text-gray-400'}`}>
+              <div className={`${activeTab === item.id ? 'text-[#00715E]' : 'text-gray-400'}`}>
                 {item.icon}
               </div>
               <span className="text-xs mt-1 font-medium">
                 {item.label}
               </span>
               {activeTab === item.id && (
-                <div className="w-1 h-1 bg-emerald-600 rounded-full mt-0.5" />
+                <div className="w-1 h-1 bg-[#00715E] rounded-full mt-0.5" />
               )}
             </button>
           ))}

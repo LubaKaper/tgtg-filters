@@ -135,7 +135,7 @@ export default function ActiveFiltersBar({
         {activeFiltersCount > 1 && (
           <button
             onClick={onClearAll}
-            className="text-sm text-emerald-600 hover:text-emerald-700 font-medium transition-colors"
+            className="text-sm text-[#00715E] hover:text-[#005a4a] font-medium transition-colors"
           >
             Clear all
           </button>
@@ -146,13 +146,13 @@ export default function ActiveFiltersBar({
         {filterChips.map((chip) => (
           <div
             key={chip.key}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded-full shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#00715E] text-white text-xs font-medium rounded-full shadow-sm"
           >
             <span>{chip.label}</span>
             <button
               onClick={chip.onRemove}
               aria-label={`Remove ${chip.label} filter`}
-              className="ml-0.5 hover:bg-emerald-700 rounded-full p-1 transition-colors min-h-[20px] min-w-[20px] flex items-center justify-center"
+              className="ml-0.5 hover:bg-[#005a4a] rounded-full p-1 transition-colors min-h-[20px] min-w-[20px] flex items-center justify-center"
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
