@@ -146,8 +146,8 @@ export default function SearchBar({
     return text;
   };
   return (
-    <div className="relative">
-      <div className="flex items-center w-full space-x-1.5">
+    <div className="relative transform-gpu">
+      <div className="flex items-center w-full space-x-1.5" style={{ transform: 'translateZ(0)' }}>
         {/* Search input */}
         <div className="flex items-center flex-1 h-11 rounded-[10px] border border-gray-300 bg-white shadow-sm px-3">
           <MagnifyingGlassIcon className="h-5 w-5 text-gray-500" />
@@ -183,7 +183,7 @@ export default function SearchBar({
       
       {/* Suggestions dropdown */}
       {showSuggestions && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-sm border border-gray-200 z-50 max-h-60 overflow-y-auto opacity-100 scale-100 transition-all duration-200 ease-out transform origin-top">
+        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-sm border border-gray-200 z-10 max-h-60 overflow-y-auto opacity-100 scale-100 transition-all duration-200 ease-out transform origin-top">
           {suggestions.length > 0 ? (
             suggestions.map((suggestion, index) => (
               <button

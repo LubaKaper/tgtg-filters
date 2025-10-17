@@ -33,7 +33,7 @@ export default function ResultCard({ store, onPress, onToggleFavorite }: ResultC
         {/* Top left badge */}
         {store.tag && (
           <span
-            className="absolute left-2 top-2 z-10 px-2 h-5 flex items-center justify-center rounded-full border border-gray-200 bg-white/90 text-[11px] font-medium text-gray-700"
+            className="absolute left-2 top-2 z-0 px-2 h-5 flex items-center justify-center rounded-full border border-gray-200 bg-white/90 text-[11px] font-medium text-gray-700"
           >
             {store.tag}
           </span>
